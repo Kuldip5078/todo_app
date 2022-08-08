@@ -9,7 +9,6 @@ class TaskListController extends GetxController {
   void increment() => count++;
 
   addItem() {
-    items.add("Item: ${items.length + 1}");
   }
 
   removeItem(index) {

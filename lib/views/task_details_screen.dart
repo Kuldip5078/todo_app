@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:todo_app/controllers/task_list_controller.dart';
 
 import '../controllers/task_details_controller.dart';
 

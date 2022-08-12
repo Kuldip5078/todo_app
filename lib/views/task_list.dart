@@ -29,7 +29,7 @@ class TaskList extends StatelessWidget {
                   onLongPress: () => update(
                       context: context,
                       docId: doc.id,
-                      oldTask: data['taskTitle']),
+                      oldtask: data['taskTitle']),
                   title: Text(data['taskTitle']),
                   subtitle: Text(data['taskDesc']),
                   trailing: IconButton(
@@ -38,6 +38,8 @@ class TaskList extends StatelessWidget {
                             .collection('tasks')
                             .doc(doc.id)
                             .delete();
+
+                        Get.back();
                       },
                       icon: const Icon(Icons.delete)),
                 );
@@ -50,61 +52,62 @@ class TaskList extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           task = '';
+
           showDialog(
-            context: context,
-            builder: (context) => AlertDialog(
-              content: TextFormField(
-                  onChanged: (v) {
-                    task = v;
-                  },
-                  decoration: const InputDecoration(hintText: 'Enter task')),
-              actions: [
-                TextButton(
-                    onPressed: () async {
-                      // Add task logic of firebase
-                      await FirebaseFirestore.instance.collection('tasks').add({
-                        'taskTitle': task,
-                        'taskDesc': 'NA',
-                      });
-                      Get.back();
-                    },
-                    child: const Text("Add task"))
-              ],
-            ),
-          );
+              context: context,
+              builder: (context) => AlertDialog(
+                    content: TextFormField(
+                      onChanged: (v) {
+                        task = v;
+                      },
+                      decoration: const InputDecoration(hintText: 'Enter task'),
+                    ),
+                    actions: [
+                      TextButton(
+                          onPressed: () {
+                            //Add task logic of firebase
+                            FirebaseFirestore.instance.collection('tasks').add({
+                              'taskTitle': task,
+                              'taskDesc': 'NA',
+                            });
+                            Get.back();
+                          },
+                          child: const Text("Add task"))
+                    ],
+                  ));
         },
         child: const Icon(Icons.add),
       ),
     );
   }
 
-  update({context, docId, oldTask}) {
-    task = oldTask;
+  update({context, docId, oldtask}) {
+    task = oldtask;
     showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        content: TextFormField(
-            initialValue: oldTask,
-            onChanged: (v) {
-              task = v;
-            },
-            decoration: const InputDecoration(hintText: 'Enter task')),
-        actions: [
-          TextButton(
-              onPressed: () async {
-                // Add task logic of firebase
-                await FirebaseFirestore.instance
-                    .collection('tasks')
-                    .doc(docId)
-                    .update({
-                  'taskTitle': task,
-                  'taskDesc': 'NA',
-                });
-                Get.back();
-              },
-              child: const Text("Update task"))
-        ],
-      ),
-    );
+        context: context,
+        builder: (context) => AlertDialog(
+              content: TextFormField(
+                initialValue: oldtask,
+                onChanged: (v) {
+                  task = v;
+                },
+                decoration: const InputDecoration(hintText: 'Enter task'),
+              ),
+              actions: [
+                TextButton(
+                    onPressed: () async {
+                      //Add task logic of firebase
+                      await FirebaseFirestore.instance
+                          .collection('tasks')
+                          .doc(docId)
+                          .update({
+                        'taskTitle': task,
+                        'taskDesc': 'NA',
+                      });
+                      Get.back();
+                    },
+                    child: const Text("Update task"))
+              ],
+            ));
   }
 }

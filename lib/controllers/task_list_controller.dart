@@ -1,6 +1,5 @@
-import 'package:flutter/cupertino.dart';
+
 import 'package:get/get.dart';
-import 'package:todo_app/views/task_details_screen.dart';
 
 class TaskListController extends GetxController {
   RxList<String> items = <String>[].obs;
@@ -9,6 +8,7 @@ class TaskListController extends GetxController {
   void increment() => count++;
 
   addItem() {
+    items.add("Item: ${items.length + 1}");
   }
 
   removeItem(index) {

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class MySharedPref extends StatefulWidget {
@@ -43,8 +42,8 @@ class _MySharedPrefState extends State<MySharedPref> {
 
   void getData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    print(prefs.getString("name"));
-    print(prefs.getString("email"));
+    // print(prefs.getString("name"));
+    // print(prefs.getString("email"));
 
     if (prefs.containsKey("name")) {
       setState(() {
